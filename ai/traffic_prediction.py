@@ -25,10 +25,13 @@ class TrafficPredictor:
 		Args:
 			dataframe: Pandas DataFrame with features and target demand column.
 		"""
-		X = dataframe.drop(columns=["target_demand"])
-		y = dataframe["target_demand"]
-		self.model.fit(X, y)
-		self.is_trained = True
+		try:
+			X = dataframe.drop(columns=["target_demand"])
+			y = dataframe["target_demand"]
+			self.model.fit(X, y)
+			self.is_trained = True
+		except Exception as e:
+			raise RuntimeError(f"Error during model training: {e}")
 
 	def predict(self, features: Any) -> float:
 		"""
@@ -41,5 +44,8 @@ class TrafficPredictor:
 		"""
 		if not self.is_trained:
 			raise RuntimeError("Model must be trained before prediction.")
-		prediction = self.model.predict([features])
-		return float(prediction[0])
+		try:
+			prediction = self.model.predict([features])
+			return float(prediction[0])
+		except Exception as e:
+			raise RuntimeError(f"Error during prediction: {e}")

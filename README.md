@@ -1,77 +1,134 @@
+
 # 5G RAN Digital Twin Simulator
 
-A research-grade Python simulation platform for 5G RAN digital twin modeling, radio access network (RAN) scheduling, AI-based traffic prediction, and dashboard visualization.
+A research-grade Python platform for simulating 5G Radio Access Networks (RAN), exploring scheduling algorithms, AI-based traffic prediction, and interactive dashboard visualization.
 
 ---
 
-## Features
+## Key Features
 
-- Simulates 5G RAN with user equipment (UE), base stations, and traffic
-- Implements Round Robin and Proportional Fair scheduling
-- Maintains a digital twin (virtual network state/history)
-- Tracks performance metrics: throughput, cell load, demand, users
-- Predicts traffic demand using scikit-learn (LinearRegression)
-- Visualizes results with a Streamlit dashboard
-
----
-
-## Requirements
-
-- Python 3.8+
-- Install dependencies:
-  ```bash
-  pip install -r requirements.txt
-  ```
+- Simulates 5G RAN with multiple base stations and user equipment (UE)
+- Pluggable scheduler architecture (Round Robin, Proportional Fair, easily extensible)
+- Digital twin: maintains virtual network state and history
+- AI-based traffic demand prediction (scikit-learn)
+- Robust error handling and logging
+- Interactive Streamlit dashboard for results visualization
+- Flexible configuration via JSON or CLI
 
 ---
 
-## Project Structure
+## Architecture Overview
 
 ```
 5g-digital-twin-simulator/
-  simulator/         # Core simulation modules
-    base_station.py      # BaseStation class
-    user_equipment.py    # UserEquipment class
-    scheduler.py         # RoundRobinScheduler and scheduling logic
-    simulation_engine.py # SimulationEngine (main simulation loop)
+  simulator/
+    base_station.py            # BaseStation logic
+    user_equipment.py          # UserEquipment logic
+    base_scheduler.py          # Abstract scheduler interface
+    scheduler.py               # RoundRobinScheduler
+    proportional_fair_scheduler.py # ProportionalFairScheduler
+    scheduler_factory.py       # SchedulerFactory for pluggable schedulers
+    simulation_engine.py       # SimulationEngine (multi-cell, metrics)
   digital_twin/
-    twin_model.py        # DigitalTwin (network state/history)
+    twin_model.py              # DigitalTwin (state/history)
   ai/
-    traffic_prediction.py # TrafficPredictor (ML-based demand prediction)
+    traffic_prediction.py      # ML-based demand prediction
   dashboard/
-    dashboard.py         # Streamlit dashboard UI
+    dashboard.py               # Streamlit dashboard UI
   data/
-    simulation_results.csv # Simulation output (auto-generated)
-  main.py               # Main entry point
-  requirements.txt      # Python dependencies
+    simulation_results.csv     # Simulation output (auto-generated)
+  simulation_config.py         # Config loader
+  logging_config.py            # Logging setup
+  main.py                     # Entry point
+  requirements.txt
   README.md
 ```
 
 ---
 
-## Getting Started
+## Installation Instructions
 
-1. **Install dependencies:**
+1. **Clone the repository:**
+   ```bash
+   git clone https://github.com/your-org/5g-digital-twin-simulator.git
+   cd 5g-digital-twin-simulator
+   ```
+
+2. **Install dependencies:**
    ```bash
    pip install -r requirements.txt
    ```
-2. **Run the simulation:**
-   ```bash
-   python main.py
-   ```
-   This will generate `data/simulation_results.csv` with simulation metrics.
-3. **Launch the dashboard:**
-   ```bash
-   streamlit run dashboard/dashboard.py
-   ```
-   The dashboard visualizes throughput, demand, and cell load over time.
 
 ---
 
-## Usage Example
+## Running the Simulator
 
-After running the simulation, you’ll see summary statistics in the terminal:
+**Default run (using built-in config):**
+```bash
+python main.py
+```
 
+**Custom configuration:**
+```bash
+python main.py --config path/to/config.json
+```
+
+This generates `data/simulation_results.csv` with simulation metrics.
+
+---
+
+## Configuration Example
+
+Create a `config.json` file to customize simulation parameters:
+```json
+{
+  "simulation_steps": 200,
+  "users": 30,
+  "total_bandwidth_mbps": 150.0,
+  "scheduler": "proportional_fair",
+  "output_file": "data/simulation_results.csv"
+}
+```
+
+---
+
+## Dashboard Usage
+
+After running the simulation, launch the dashboard:
+```bash
+streamlit run dashboard/dashboard.py
+```
+- Visualizes throughput, demand, and cell load over time.
+- Robust to missing or malformed data: shows warnings if results are unavailable.
+
+---
+
+## Scheduler Extensibility
+
+Schedulers implement the `BaseScheduler` interface:
+```python
+class BaseScheduler(ABC):
+    @abstractmethod
+    def allocate_bandwidth(self, base_station: 'BaseStation') -> None:
+        pass
+```
+- Add new schedulers by subclassing `BaseScheduler` and registering with `SchedulerFactory`.
+- Example: `RoundRobinScheduler`, `ProportionalFairScheduler`.
+
+---
+
+## Logging
+
+- Logs are written to `logs/simulator.log` and output to the console.
+- Log level: INFO
+- Log format: `%(asctime)s | %(levelname)s | %(name)s | %(message)s`
+- Logging is configured via `logging_config.py`.
+
+---
+
+## Example Simulation Output
+
+Terminal summary:
 ```
 --- Simulation Summary ---
 Timesteps: 100
@@ -79,35 +136,16 @@ Total Users: 20
 Average Throughput: 85.23 Mbps
 Average Cell Load: 0.92
 ```
-
-Open the dashboard to explore results interactively.
-
----
-
-## Module Overview
-
-- **simulator/user_equipment.py**: Models a mobile device generating traffic demand.
-- **simulator/base_station.py**: Manages connected users and bandwidth allocation.
-- **simulator/scheduler.py**: Implements scheduling algorithms (e.g., Round Robin).
-- **simulator/simulation_engine.py**: Runs the simulation and collects metrics.
-- **digital_twin/twin_model.py**: Stores network state history (digital twin).
-- **ai/traffic_prediction.py**: Predicts future demand using machine learning.
-- **dashboard/dashboard.py**: Streamlit dashboard for visualization.
+Dashboard: Interactive charts for throughput, demand, and cell load.
 
 ---
 
-## License
+## Future Work
 
-This project is released under the MIT License.
-
----
-
-## Contributing
-
-Pull requests and issues are welcome! For major changes, please open an issue first to discuss what you would like to change.
+- User mobility and handover modeling
+- Inter-cell interference and advanced radio models
+- Additional scheduling algorithms (e.g., Max C/I, ML-based)
+- Real-time scenario editing via dashboard
+- Integration with real network traces
 
 ---
-
-## Contact
-
-For questions or collaboration, please contact the project maintainer.
