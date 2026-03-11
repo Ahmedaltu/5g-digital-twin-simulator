@@ -1,0 +1,4 @@
+2026-03-12 00:33:27,484 | ERROR | Dashboard | Missing required columns: avg_user_throughput, jains_fairness_index, congestion_ratio
+2026-03-12 01:18:32,599 | WARNING | Dashboard | Simulation results file not found: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-12 01:19:07,640 | WARNING | Dashboard | Simulation results file not found: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-12 01:21:40,562 | WARNING | Dashboard | Simulation results file not found: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv

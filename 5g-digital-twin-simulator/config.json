@@ -1,0 +1,7 @@
+{
+  "steps": 100,
+  "users": 20,
+  "base_station_id": 1,
+  "total_bandwidth_mbps": 100.0,
+  "output_file": "5g-digital-twin-simulator/data/simulation_results.csv"
+}
