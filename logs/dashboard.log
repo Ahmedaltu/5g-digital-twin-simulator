@@ -2,3 +2,62 @@
 2026-03-12 01:18:32,599 | WARNING | Dashboard | Simulation results file not found: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
 2026-03-12 01:19:07,640 | WARNING | Dashboard | Simulation results file not found: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
 2026-03-12 01:21:40,562 | WARNING | Dashboard | Simulation results file not found: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-13 22:35:39,620 | WARNING | Dashboard | Simulation results file not found: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-13 22:38:10,111 | WARNING | Dashboard | Simulation results file not found: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-13 22:41:38,169 | WARNING | Dashboard | Simulation results file not found: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-13 23:04:50,566 | INFO | Dashboard | Simulator run from dashboard. Output: DEBUG: Metric keys: ['timestep', 'base_station_id', 'users', 'demand', 'throughput', 'cell_load', 'avg_user_throughput', 'jains_fairness_index', 'congestion_ratio']
+DEBUG: Wrote simulation results to C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\data\simulation_results.csv
+--- Simulation Summary ---
+Timesteps: 100
+Total Users: 20
+Average Throughput: 81.91 Mbps
+Average Cell Load: 0.82
+
+2026-03-13 23:05:41,094 | INFO | Dashboard | Simulator run from dashboard. Output: DEBUG: Metric keys: ['timestep', 'base_station_id', 'users', 'demand', 'throughput', 'cell_load', 'avg_user_throughput', 'jains_fairness_index', 'congestion_ratio']
+DEBUG: Wrote simulation results to C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\data\simulation_results.csv
+--- Simulation Summary ---
+Timesteps: 100
+Total Users: 20
+Average Throughput: 81.92 Mbps
+Average Cell Load: 0.82
+
+2026-03-13 23:07:20,001 | INFO | Dashboard | Simulator run from dashboard. Output: DEBUG: Metric keys: ['timestep', 'base_station_id', 'users', 'demand', 'throughput', 'cell_load', 'avg_user_throughput', 'jains_fairness_index', 'congestion_ratio']
+DEBUG: Wrote simulation results to C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\data\simulation_results.csv
+--- Simulation Summary ---
+Timesteps: 100
+Total Users: 20
+Average Throughput: 81.16 Mbps
+Average Cell Load: 0.81
+
+2026-03-13 23:09:01,953 | INFO | Dashboard | Simulator run from dashboard. Output: DEBUG: Metric keys: ['timestep', 'base_station_id', 'users', 'demand', 'throughput', 'cell_load', 'avg_user_throughput', 'jains_fairness_index', 'congestion_ratio']
+DEBUG: Wrote simulation results to C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\data\simulation_results.csv
+--- Simulation Summary ---
+Timesteps: 100
+Total Users: 20
+Average Throughput: 82.12 Mbps
+Average Cell Load: 0.82
+
+2026-03-13 23:09:38,983 | INFO | Dashboard | Simulator run from dashboard. Output: DEBUG: Metric keys: ['timestep', 'base_station_id', 'users', 'demand', 'throughput', 'cell_load', 'avg_user_throughput', 'jains_fairness_index', 'congestion_ratio']
+DEBUG: Wrote simulation results to C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\data\simulation_results.csv
+--- Simulation Summary ---
+Timesteps: 100
+Total Users: 20
+Average Throughput: 82.37 Mbps
+Average Cell Load: 0.82
+
+2026-03-13 23:09:42,813 | INFO | Dashboard | Simulator run from dashboard. Output: DEBUG: Metric keys: ['timestep', 'base_station_id', 'users', 'demand', 'throughput', 'cell_load', 'avg_user_throughput', 'jains_fairness_index', 'congestion_ratio']
+DEBUG: Wrote simulation results to C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\data\simulation_results.csv
+--- Simulation Summary ---
+Timesteps: 100
+Total Users: 20
+Average Throughput: 82.34 Mbps
+Average Cell Load: 0.82
+
+2026-03-13 23:09:44,104 | INFO | Dashboard | Simulator run from dashboard. Output: DEBUG: Metric keys: ['timestep', 'base_station_id', 'users', 'demand', 'throughput', 'cell_load', 'avg_user_throughput', 'jains_fairness_index', 'congestion_ratio']
+DEBUG: Wrote simulation results to C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\data\simulation_results.csv
+--- Simulation Summary ---
+Timesteps: 100
+Total Users: 20
+Average Throughput: 81.64 Mbps
+Average Cell Load: 0.82
+

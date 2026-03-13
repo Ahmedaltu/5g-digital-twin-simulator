@@ -35,43 +35,64 @@ st.set_page_config(page_title="5G RAN Digital Twin Dashboard", layout="wide")
 st.title("5G RAN Digital Twin Monitoring Dashboard")
 st.markdown("Monitor your simulated 5G network in real time.")
 
+
 # Load simulation results
 @st.cache_data
 def load_data():
-	# Always resolve the path from the project root
-	project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-	file_path = os.path.join(project_root, "data", "simulation_results.csv")
-	if not os.path.exists(file_path):
-		st.warning("No simulation results found. Run the simulator first.")
-		logger.warning("Simulation results file not found: %s", file_path)
-		return pd.DataFrame()
-	try:
-		df = pd.read_csv(file_path)
-	except pd.errors.EmptyDataError:
-		st.warning("Simulation results file is empty.")
-		logger.warning("Simulation results file is empty: %s", file_path)
-		return pd.DataFrame()
-	except Exception as e:
-		st.error("Failed to load simulation data. The results file may be corrupted.")
-		logger.error("Failed to load simulation data: %s | Error: %s", file_path, str(e))
-		return pd.DataFrame()
-	if df.empty:
-		st.warning("Simulation results file is empty.")
-		logger.warning("Simulation results file is empty after loading: %s", file_path)
-		return pd.DataFrame()
-	missing_cols = [col for col in REQUIRED_COLUMNS if col not in df.columns]
-	if missing_cols:
-		st.error(f"Simulation results are missing required columns: {', '.join(missing_cols)}")
-		logger.error("Missing required columns: %s", ', '.join(missing_cols))
-		return pd.DataFrame()
-	return df
+    # Always resolve the path from the project root
+    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    file_path = os.path.join(project_root, "data", "simulation_results.csv")
+    if not os.path.exists(file_path):
+        return None, file_path
+    try:
+        df = pd.read_csv(file_path)
+    except pd.errors.EmptyDataError:
+        logger.warning("Simulation results file is empty: %s", file_path)
+        return pd.DataFrame(), file_path
+    except Exception as e:
+        logger.error("Failed to load simulation data: %s | Error: %s", file_path, str(e))
+        return pd.DataFrame(), file_path
+    if df.empty:
+        logger.warning("Simulation results file is empty after loading: %s", file_path)
+        return pd.DataFrame(), file_path
+    missing_cols = [col for col in REQUIRED_COLUMNS if col not in df.columns]
+    if missing_cols:
+        logger.error("Missing required columns: %s", ', '.join(missing_cols))
+        return pd.DataFrame(), file_path
+    return df, file_path
 
 
-df = load_data()
+df, file_path = load_data()
 st.markdown("---")
 
-# Only render charts and metrics if data is available
-if not df.empty:
+# If simulation results are missing, show help and run button
+if df is None or (isinstance(df, pd.DataFrame) and df.empty):
+	st.warning("No simulation results found.")
+	st.markdown(
+		"""
+		**How to generate simulation results:**
+		- Click the **Run Simulation** button below to generate results directly from this dashboard.
+		- Or, run the following command in your terminal:
+		  ```
+		  python 5g-digital-twin-simulator/main.py
+		  ```
+		- The results file is expected at: `data/simulation_results.csv`
+
+		**Troubleshooting:**
+		- If the file is still missing after running the simulation, check for errors in the backend output.
+		- If the file is empty or cannot be read, ensure the simulation completed successfully and produced valid output.
+		"""
+	)
+	if st.button("Run Simulation"):
+		import subprocess
+		try:
+			result = subprocess.run(["python", "5g-digital-twin-simulator/main.py"], capture_output=True, text=True, check=True)
+			st.success("Simulation completed. Please refresh the dashboard to view results.")
+			logger.info("Simulator run from dashboard. Output: %s", result.stdout)
+		except Exception as e:
+			st.error(f"Failed to run simulator: {e}")
+			logger.error("Simulator run failed: %s", str(e))
+else:
 	# Display key metrics for the last timestep and cell
 	last_row = df.iloc[-1]
 	col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
