@@ -179,21 +179,26 @@ else:
 
 	st.markdown("---")
 
-	# Line charts for metrics over time (all cells)
-	st.subheader("Throughput Over Time")
-	st.line_chart(df.set_index("timestep")["throughput"])
+	# Plots as clickable tabs
+	tab_labels = [
+		"Throughput Over Time",
+		"Avg User Throughput Over Time",
+		"Jain's Fairness Index Over Time",
+		"Congestion Ratio Over Time",
+		"Traffic Demand Over Time",
+		"Cell Utilization Over Time"
+	]
+	tabs = st.tabs(tab_labels)
 
-	st.subheader("Avg User Throughput Over Time")
-	st.line_chart(df.set_index("timestep")["avg_user_throughput"])
-
-	st.subheader("Jain's Fairness Index Over Time")
-	st.line_chart(df.set_index("timestep")["jains_fairness_index"])
-
-	st.subheader("Congestion Ratio Over Time")
-	st.line_chart(df.set_index("timestep")["congestion_ratio"])
-
-	st.subheader("Traffic Demand Over Time")
-	st.line_chart(df.set_index("timestep")["demand"])
-
-	st.subheader("Cell Utilization Over Time")
-	st.line_chart(df.set_index("timestep")["cell_load"])
+	with tabs[0]:
+		st.line_chart(df.set_index("timestep")["throughput"])
+	with tabs[1]:
+		st.line_chart(df.set_index("timestep")["avg_user_throughput"])
+	with tabs[2]:
+		st.line_chart(df.set_index("timestep")["jains_fairness_index"])
+	with tabs[3]:
+		st.line_chart(df.set_index("timestep")["congestion_ratio"])
+	with tabs[4]:
+		st.line_chart(df.set_index("timestep")["demand"])
+	with tabs[5]:
+		st.line_chart(df.set_index("timestep")["cell_load"])
