@@ -66,3 +66,94 @@ Average Cell Load: 0.82
 2026-03-10 14:29:14,411 | WARNING | Dashboard | Simulation results file not found: ..\data\simulation_results.csv
 2026-03-10 21:26:17,558 | WARNING | Dashboard | Simulation results file not found: ..\data\simulation_results.csv
 >>>>>>> 95ecb13d6ee27cc881fdc378b724fcbcd7068877
+2026-03-14 21:42:19,642 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:46:20,035 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:46:26,287 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:47:00,548 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:47:00,564 | INFO | Dashboard | Cell selection: Cell 1
+2026-03-14 21:47:01,504 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:47:09,362 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:47:09,600 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:47:12,775 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:47:13,490 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:47:27,018 | INFO | Dashboard | Cell selection: Cell 1
+2026-03-14 21:47:34,848 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:47:35,058 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:47:41,575 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:47:42,450 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:48:35,512 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:48:35,718 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:48:42,330 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:48:43,133 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:49:07,296 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:49:08,126 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:49:15,539 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:49:16,315 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:49:38,657 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:49:38,923 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:49:45,037 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:49:45,250 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:50:00,934 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:50:01,144 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:50:07,880 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:50:08,101 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:50:24,350 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:50:24,602 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:50:31,240 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:50:31,472 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:50:48,794 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:50:49,022 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:50:55,176 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:50:55,408 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:51:29,013 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:51:29,268 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 21:51:35,951 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 21:51:36,198 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:11:20,913 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:11:21,186 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:11:27,792 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:11:28,053 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:11:58,270 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:11:58,521 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:12:05,160 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:12:05,411 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:14:18,597 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:14:18,816 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:14:25,507 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:14:25,744 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:15:01,961 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:15:02,765 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:15:42,207 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:15:42,456 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:15:48,629 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:15:48,869 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:16:09,380 | INFO | Dashboard | Checking for simulation results file at: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-14 22:16:09,382 | INFO | Dashboard | Loaded simulation results file: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv, shape=(100, 9)
+2026-03-14 22:16:09,385 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:16:09,631 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:16:16,270 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:16:16,502 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:18:30,226 | INFO | Dashboard | Checking for simulation results file at: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-14 22:18:30,228 | INFO | Dashboard | Loaded simulation results file: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv, shape=(100, 9)
+2026-03-14 22:18:30,231 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:18:30,453 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:18:37,228 | INFO | Dashboard | Checking for simulation results file at: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-14 22:18:37,231 | INFO | Dashboard | Loaded simulation results file: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv, shape=(100, 9)
+2026-03-14 22:18:37,234 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:18:37,471 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:27:26,271 | INFO | Dashboard | Checking for simulation results file at: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-14 22:27:26,277 | INFO | Dashboard | Loaded simulation results file: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv, shape=(100, 9)
+2026-03-14 22:27:26,284 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:27:26,921 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:39:37,850 | INFO | Dashboard | Checking for simulation results file at: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-14 22:39:37,855 | INFO | Dashboard | Loaded simulation results file: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv, shape=(100, 9)
+2026-03-14 22:39:37,862 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:39:38,748 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:39:48,676 | INFO | Dashboard | Checking for simulation results file at: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-14 22:39:48,680 | INFO | Dashboard | Loaded simulation results file: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv, shape=(100, 9)
+2026-03-14 22:39:48,684 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:39:49,350 | WARNING | Dashboard | Congestion ratio alert triggered.
+2026-03-14 22:40:14,744 | INFO | Dashboard | Checking for simulation results file at: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv
+2026-03-14 22:40:14,749 | INFO | Dashboard | Loaded simulation results file: C:\Users\tuwai\Documents\GitHub\5G RAN Digital Twin Simulator\5g-digital-twin-simulator\data\simulation_results.csv, shape=(100, 9)
+2026-03-14 22:40:14,754 | INFO | Dashboard | Cell selection: All Cells
+2026-03-14 22:40:15,427 | WARNING | Dashboard | Congestion ratio alert triggered.

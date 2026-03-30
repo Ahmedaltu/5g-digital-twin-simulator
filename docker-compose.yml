@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile.backend
+    container_name: 5g-backend
+    restart: unless-stopped
+    volumes:
+      - simulation_data:/app/data
+      - simulation_logs:/app/logs
+    networks:
+      - 5g-net
+    healthcheck:
+      test: ["CMD", "test", "-f", "/app/data/simulation_results.csv"]
+      interval: 30s
+      timeout: 5s
+      start_period: 15s
+      retries: 3
+
+  dashboard:
+    build:
+      context: .
+      dockerfile: Dockerfile.frontend
+    container_name: 5g-dashboard
+    restart: unless-stopped
+    ports:
+      - "8501:8501"
+    volumes:
+      - simulation_data:/app/data
+    networks:
+      - 5g-net
+    depends_on:
+      backend:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request; urllib.request.urlopen('http://localhost:8501/_stcore/health')"]
+      interval: 30s
+      timeout: 10s
+      start_period: 30s
+      retries: 3
+
+volumes:
+  simulation_data:
+  simulation_logs:
+
+networks:
+  5g-net:
+    driver: bridge

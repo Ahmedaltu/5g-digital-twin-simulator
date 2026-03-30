@@ -32,8 +32,73 @@ logger = logging.getLogger("Dashboard")
 
 st.set_page_config(page_title="5G RAN Digital Twin Dashboard", layout="wide")
 
+
 st.title("5G RAN Digital Twin Monitoring Dashboard")
 st.markdown("Monitor your simulated 5G network in real time.")
+
+# --- Sidebar: Simulation Configuration ---
+st.sidebar.header("Simulation Configuration")
+import json
+project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+config_path = os.path.join(project_root, "config.json")
+default_config = {
+	"simulation_steps": 100,
+	"users": 20,
+	"total_bandwidth_mbps": 100.0,
+	"scheduler": "round_robin",
+	"output_file": "data/simulation_results.csv"
+}
+try:
+	with open(config_path, "r") as f:
+		config_data = json.load(f)
+except Exception:
+	config_data = default_config.copy()
+simulation_steps = st.sidebar.number_input("Simulation Steps", min_value=1, max_value=10000, value=int(config_data.get("simulation_steps", 100)), step=1)
+users = st.sidebar.number_input("Number of Users", min_value=1, max_value=1000, value=int(config_data.get("users", 20)), step=1)
+total_bandwidth_mbps = st.sidebar.number_input("Total Bandwidth (Mbps)", min_value=1.0, max_value=10000.0, value=float(config_data.get("total_bandwidth_mbps", 100.0)), step=1.0)
+scheduler = st.sidebar.selectbox("Scheduler", ["round_robin", "proportional_fair"], index=0 if config_data.get("scheduler", "round_robin") == "round_robin" else 1)
+output_file = st.sidebar.text_input("Output File", value=config_data.get("output_file", "data/simulation_results.csv"))
+
+def run_simulation_logic():
+	new_config = {
+		"simulation_steps": simulation_steps,
+		"users": users,
+		"total_bandwidth_mbps": total_bandwidth_mbps,
+		"scheduler": scheduler,
+		"output_file": output_file
+	}
+	try:
+		with open(config_path, "w") as f:
+			json.dump(new_config, f, indent=2)
+		st.sidebar.success("Configuration saved!")
+		# Automatically run simulation after saving config
+		main_path = os.path.join(project_root, "main.py")
+		st.sidebar.info(f"Running simulation. Output file: {output_file}")
+		import subprocess
+		try:
+			result = subprocess.run([
+				"python", main_path,
+				"--config", config_path,
+				"--scheduler", scheduler,
+				"--steps", str(simulation_steps),
+				"--users", str(users),
+				"--bandwidth", str(total_bandwidth_mbps)
+			], capture_output=True, text=True, check=False)
+			st.sidebar.info(f"Simulation stdout:\n{result.stdout}")
+			if result.returncode == 0:
+				st.sidebar.success("Simulation run with new configuration!")
+			else:
+				st.sidebar.error(f"Simulation failed (code {result.returncode}): {result.stderr}")
+				st.sidebar.error(f"Check if the output file was written: {output_file}")
+		except Exception as e:
+			st.sidebar.error(f"Exception running simulation: {e}")
+		st.cache_data.clear()
+		st.rerun()
+	except Exception as e:
+		st.sidebar.error(f"Failed to save config or run simulation: {e}")
+
+if st.sidebar.button("Save & Run Simulation"):
+	run_simulation_logic()
 
 
 # Load simulation results
