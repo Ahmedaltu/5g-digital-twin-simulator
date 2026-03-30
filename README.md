@@ -15,7 +15,8 @@ The Streamlit dashboard now features modern, user-friendly navigation for all si
 
 **Example:**
 
-![Tabbed dashboard screenshot](docs/dashboard_tabs_example.png)
+<img width="2351" height="1266" alt="image" src="https://github.com/user-attachments/assets/d6c10cba-c9e1-4058-8ada-9d44bd4f1a40" />
+
 
 This improves usability for large result sets and matches the navigation style of modern analytics dashboards.
 
