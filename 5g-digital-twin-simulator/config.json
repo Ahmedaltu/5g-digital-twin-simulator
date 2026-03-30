@@ -1,6 +1,6 @@
 {
   "simulation_steps": 100,
-  "users": 26,
+  "users": 25,
   "total_bandwidth_mbps": 100.0,
   "scheduler": "round_robin",
   "output_file": "data/simulation_results.csv"

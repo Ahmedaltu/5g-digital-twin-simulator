@@ -7,6 +7,7 @@ Visualizes network performance and predictions.
 import streamlit as st
 import pandas as pd
 import logging
+import sys
 
 import os
 
@@ -71,20 +72,24 @@ def run_simulation_logic():
 		with open(config_path, "w") as f:
 			json.dump(new_config, f, indent=2)
 		st.sidebar.success("Configuration saved!")
+		# Show debug info
+		st.sidebar.info(f"[DEBUG] Config path: {config_path}")
+		st.sidebar.info(f"[DEBUG] Output file: {output_file}")
+		st.sidebar.info(f"[DEBUG] Simulation command: python {os.path.join(project_root, 'main.py')} --config {config_path} --scheduler {scheduler} --steps {simulation_steps} --users {users} --bandwidth {total_bandwidth_mbps}")
 		# Automatically run simulation after saving config
 		main_path = os.path.join(project_root, "main.py")
-		st.sidebar.info(f"Running simulation. Output file: {output_file}")
 		import subprocess
 		try:
 			result = subprocess.run([
-				"python", main_path,
+				sys.executable, main_path,
 				"--config", config_path,
 				"--scheduler", scheduler,
 				"--steps", str(simulation_steps),
 				"--users", str(users),
 				"--bandwidth", str(total_bandwidth_mbps)
-			], capture_output=True, text=True, check=False)
+			], capture_output=True, text=True, check=False, cwd=project_root)
 			st.sidebar.info(f"Simulation stdout:\n{result.stdout}")
+			st.sidebar.info(f"Simulation stderr:\n{result.stderr}")
 			if result.returncode == 0:
 				st.sidebar.success("Simulation run with new configuration!")
 			else:
@@ -102,32 +107,39 @@ if st.sidebar.button("Save & Run Simulation"):
 
 
 # Load simulation results
-@st.cache_data
-def load_data():
-    # Always resolve the path from the project root
-    project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    file_path = os.path.join(project_root, "data", "simulation_results.csv")
-    if not os.path.exists(file_path):
-        return None, file_path
-    try:
-        df = pd.read_csv(file_path)
-    except pd.errors.EmptyDataError:
-        logger.warning("Simulation results file is empty: %s", file_path)
-        return pd.DataFrame(), file_path
-    except Exception as e:
-        logger.error("Failed to load simulation data: %s | Error: %s", file_path, str(e))
-        return pd.DataFrame(), file_path
-    if df.empty:
-        logger.warning("Simulation results file is empty after loading: %s", file_path)
-        return pd.DataFrame(), file_path
-    missing_cols = [col for col in REQUIRED_COLUMNS if col not in df.columns]
-    if missing_cols:
-        logger.error("Missing required columns: %s", ', '.join(missing_cols))
-        return pd.DataFrame(), file_path
-    return df, file_path
+
+# Load simulation results from the output_file specified in config
+@st.cache_data(show_spinner="Loading simulation results...")
+def load_data(current_config: dict):
+	project_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+	# Use the output_file from config_data (already loaded above)
+	output_file_path = current_config.get("output_file", "data/simulation_results.csv")
+	# If not absolute, resolve relative to project root
+	if not os.path.isabs(output_file_path):
+		file_path = os.path.join(project_root, output_file_path)
+	else:
+		file_path = output_file_path
+	if not os.path.exists(file_path):
+		return None, file_path
+	try:
+		df = pd.read_csv(file_path)
+	except pd.errors.EmptyDataError:
+		logger.warning("Simulation results file is empty: %s", file_path)
+		return pd.DataFrame(), file_path
+	except Exception as e:
+		logger.error("Failed to load simulation data: %s | Error: %s", file_path, str(e))
+		return pd.DataFrame(), file_path
+	if df.empty:
+		logger.warning("Simulation results file is empty after loading: %s", file_path)
+		return pd.DataFrame(), file_path
+	missing_cols = [col for col in REQUIRED_COLUMNS if col not in df.columns]
+	if missing_cols:
+		logger.error("Missing required columns: %s", ', '.join(missing_cols))
+		return pd.DataFrame(), file_path
+	return df, file_path
 
 
-df, file_path = load_data()
+df, file_path = load_data(config_data)
 st.markdown("---")
 
 # If simulation results are missing, show help and run button
@@ -148,18 +160,14 @@ if df is None or (isinstance(df, pd.DataFrame) and df.empty):
 		- If the file is empty or cannot be read, ensure the simulation completed successfully and produced valid output.
 		"""
 	)
-	if st.button("Run Simulation"):
-		import subprocess
-		try:
-			result = subprocess.run(["python", "5g-digital-twin-simulator/main.py"], capture_output=True, text=True, check=True)
-			st.success("Simulation completed. Please refresh the dashboard to view results.")
-			logger.info("Simulator run from dashboard. Output: %s", result.stdout)
-		except Exception as e:
-			st.error(f"Failed to run simulator: {e}")
-			logger.error("Simulator run failed: %s", str(e))
+	if st.button("Run Simulation with Current Settings"):
+		run_simulation_logic()
 else:
 	# Display key metrics for the last timestep and cell
 	last_row = df.iloc[-1]
+	# --- Warn if config and results differ ---
+	if int(last_row["users"]) != int(users):
+		st.warning(f"⚠️ The number of users in the simulation results ({int(last_row['users'])}) does not match the current configuration ({int(users)}). Run the simulation to update results.")
 	col1, col2, col3, col4, col5, col6, col7 = st.columns(7)
 	col1.metric("Number of Users", int(last_row["users"]))
 	col2.metric("Throughput (Mbps)", f"{last_row['throughput']:.2f}")

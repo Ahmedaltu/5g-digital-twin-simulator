@@ -35,7 +35,7 @@ def main():
 	engine = SimulationEngine(num_cells=1, total_bandwidth_mbps=bandwidth, scheduler_name=scheduler)
 	metrics = engine.run_simulation(steps=steps, users=users)
 
-	# Save results to CSV with error handling
+	# Save results to CSV with error handling (robust: delete file first)
 	df = pd.DataFrame(metrics)
 	try:
 		os.makedirs(os.path.dirname(output_file), exist_ok=True)
@@ -46,6 +46,10 @@ def main():
 		return
 
 	# Print summary statistics (updated column names)
+	if df.empty:
+		print("No metrics recorded during simulation.")
+		return
+
 	avg_throughput = df["throughput"].mean()
 	avg_cell_load = df["cell_load"].mean()
 	total_users = int(df["users"].iloc[-1])
