@@ -67,7 +67,7 @@ This improves usability for large result sets and matches the navigation style o
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/your-org/5g-digital-twin-simulator.git
+   git clone https://github.com/5g-digital-twin-simulator.git
    cd 5g-digital-twin-simulator
    ```
 
