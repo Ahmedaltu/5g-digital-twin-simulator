@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(rm -f \"/mnt/c/Users/tuwai/Documents/GitHub/5G RAN Digital Twin Simulator/simulator/metrics.py\")",
+      "Bash(rm -rf \"/mnt/c/Users/tuwai/Documents/GitHub/5G RAN Digital Twin Simulator/simulator/tests\")"
+    ]
+  }
+}
