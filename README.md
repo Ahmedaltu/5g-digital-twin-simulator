@@ -19,29 +19,45 @@ A research-grade Python platform for simulating 5G Radio Access Networks (RAN), 
 
 ## Architecture Overview
 
-```
-5g-digital-twin-simulator/
-  simulator/
-    base_station.py            # BaseStation logic
-    user_equipment.py          # UserEquipment logic
-    base_scheduler.py          # Abstract scheduler interface
-    scheduler.py               # RoundRobinScheduler
-    proportional_fair_scheduler.py # ProportionalFairScheduler
-    scheduler_factory.py       # SchedulerFactory for pluggable schedulers
-    simulation_engine.py       # SimulationEngine (multi-cell, metrics)
-  digital_twin/
-    twin_model.py              # DigitalTwin (state/history)
-  ai/
-    traffic_prediction.py      # ML-based demand prediction
-  dashboard/
-    dashboard.py               # Streamlit dashboard UI
-  data/
-    simulation_results.csv     # Simulation output (auto-generated)
-  simulation_config.py         # Config loader
-  logging_config.py            # Logging setup
-  main.py                     # Entry point
-  requirements.txt
-  README.md
+```mermaid
+graph TD
+    CLI["CLI / config.json<br/>(main.py + SimulationConfig)"]
+
+    subgraph Simulation Core
+        SE["SimulationEngine"]
+        BS["BaseStation"]
+        UE["UserEquipment"]
+        SF["SchedulerFactory"]
+        RR["RoundRobinScheduler"]
+        PF["ProportionalFairScheduler"]
+    end
+
+    subgraph Digital Twin
+        DT["DigitalTwin<br/>Stores metric history"]
+    end
+
+    subgraph AI Layer
+        TP["TrafficPredictor<br/>LinearRegression demand forecast"]
+    end
+
+    subgraph Output
+        CSV["simulation_results.csv"]
+        DB["Streamlit Dashboard<br/>localhost:8501"]
+    end
+
+    CLI -->|"steps, users, bandwidth, scheduler"| SE
+    SE -->|manages| BS
+    BS -->|hosts| UE
+    UE -->|generate_traffic_demand| UE
+    SE -->|creates via| SF
+    SF --> RR
+    SF --> PF
+    RR -->|allocate_bandwidth| BS
+    PF -->|allocate_bandwidth| BS
+    SE -->|per-step metrics| DT
+    SE -->|writes| CSV
+    DT -->|historical data| TP
+    CSV -->|reads| DB
 ```
 
 ---
