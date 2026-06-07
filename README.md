@@ -5,23 +5,6 @@ A research-grade Python platform for simulating 5G Radio Access Networks (RAN), 
 
 ---
 
-
-## Dashboard Plot Navigation (NEW)
-
-The Streamlit dashboard now features modern, user-friendly navigation for all simulation plots:
-
-- **Tabbed Plots:** All time-series charts (Throughput, User Throughput, Jain's Fairness, Congestion Ratio, Traffic Demand, Cell Utilization) are organized into clickable tabs. Users can simply click a tab to view the corresponding plot—no scrolling required.
-- **Responsive UI:** The dashboard layout is clean and efficient, making it easy to focus on one metric at a time.
-
-**Example:**
-
-<img width="2351" height="1266" alt="image" src="https://github.com/user-attachments/assets/d6c10cba-c9e1-4058-8ada-9d44bd4f1a40" />
-
-
-This improves usability for large result sets and matches the navigation style of modern analytics dashboards.
-
----
-
 ## Key Features
 
 - Simulates 5G RAN with multiple base stations and user equipment (UE)
@@ -67,7 +50,7 @@ This improves usability for large result sets and matches the navigation style o
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/5g-digital-twin-simulator.git
+   git clone https://github.com/your-org/5g-digital-twin-simulator.git
    cd 5g-digital-twin-simulator
    ```
 

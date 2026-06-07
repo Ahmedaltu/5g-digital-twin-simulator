@@ -1,5 +1,6 @@
 import json
-from typing import Optional
+import logging
+from typing import Any, Dict
 
 class SimulationConfig:
     """
@@ -31,13 +32,17 @@ class SimulationConfig:
         """
         try:
             with open(path, 'r') as f:
-                data = json.load(f)
-        except Exception:
-            data = {}
-        return SimulationConfig(
-            simulation_steps=data.get('simulation_steps', 100),
-            users=data.get('users', 20),
-            total_bandwidth_mbps=data.get('total_bandwidth_mbps', 100.0),
-            scheduler=data.get('scheduler', 'round_robin'),
-            output_file=data.get('output_file', 'data/simulation_results.csv')
-        )
+                data: Dict[str, Any] = json.load(f)
+                # Safely extract values to handle key variations and missing fields
+                return SimulationConfig(
+                    simulation_steps=data.get('simulation_steps', data.get('steps', 100)),
+                    users=data.get('users', 20),
+                    total_bandwidth_mbps=data.get('total_bandwidth_mbps', 100.0),
+                    scheduler=data.get('scheduler', 'round_robin'),
+                    output_file=data.get('output_file', data.get('output_csv', 'data/simulation_results.csv'))
+                )
+        except FileNotFoundError:
+            return SimulationConfig()
+        except (json.JSONDecodeError, TypeError) as e:
+            logging.warning(f"Error loading config file {path}: {e}. Using defaults.")
+            return SimulationConfig()

@@ -1,6 +1,11 @@
-
-
 from typing import List, Dict, Any
+from .kpi_utils import (
+    total_throughput,
+    average_user_throughput,
+    cell_utilization,
+    jains_fairness_index,
+    congestion_ratio,
+)
 import logging
 from .base_station import BaseStation
 from .user_equipment import UserEquipment
@@ -62,19 +67,35 @@ class SimulationEngine:
                     ue.generate_traffic_demand()
                 # Run scheduler for this cell
                 scheduler.allocate_bandwidth(bs)
+                # Gather per-user allocated bandwidths
+                allocated_bandwidths = [ue.allocated_bandwidth_mbps for ue in bs.get_connected_users()]
                 # Collect per-cell metrics
                 total_demand = bs.calculate_total_demand()
-                total_throughput = scheduler.calculate_total_throughput(bs)
-                cell_load = bs.calculate_cell_load()
+                tput = total_throughput(allocated_bandwidths)
+                avg_user_tput = average_user_throughput(allocated_bandwidths)
+                cell_bw = bs.total_bandwidth_mbps
+                utilization = cell_utilization(tput, cell_bw)
+                fairness = jains_fairness_index(allocated_bandwidths)
+                congestion = congestion_ratio(total_demand, cell_bw)
                 metric = {
                     "timestep": t + 1,
                     "base_station_id": bs.base_station_id,
                     "users": len(bs.get_connected_users()),
                     "demand": total_demand,
-                    "throughput": total_throughput,
-                    "cell_load": cell_load
+                    "throughput": tput,
+                    "cell_load": utilization,
+                    "avg_user_throughput": avg_user_tput,
+                    "jains_fairness_index": fairness,
+                    "congestion_ratio": congestion
                 }
                 self.metrics.append(metric)
-                self.logger.info(f"Timestep {t+1} | Cell {bs.base_station_id} | Users: {len(bs.get_connected_users())} | Demand: {total_demand:.2f} | Throughput: {total_throughput:.2f} | Load: {cell_load:.2f}")
+                self.logger.info(
+                    f"Timestep {t+1} | Cell {bs.base_station_id} | Users: {len(bs.get_connected_users())} | "
+                    f"Demand: {total_demand:.2f} | Throughput: {tput:.2f} | Utilization: {utilization:.2f} | "
+                    f"AvgUserTput: {avg_user_tput:.2f} | Jain: {fairness:.3f} | Congestion: {congestion:.2f}"
+                )
 
+        # Debug: print the first metric's keys at the end of simulation
+        if self.metrics:
+            print("DEBUG: Metric keys:", list(self.metrics[0].keys()))
         return self.metrics
